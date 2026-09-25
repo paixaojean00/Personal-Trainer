@@ -395,5 +395,18 @@ document.addEventListener('DOMContentLoaded', async function() {
   <script type="__bundler/template">
 "<!DOCTYPE html>\n<html><head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<script src=\"f49dba42-b034-4162-be8a-20d85d09c2f6\"><\u002Fscript>\n<\u002Fhead>\n<body>\n<x-dc>\n<helmet>\n<title>Alessandro Rodrigues | Personal Trainer e Transformação Feminina<\u002Ftitle>\n<style>body{margin:0;background:#0A0B0C}<\u002Fstyle>\n<\u002Fhelmet>\n<sc-if value=\"{{ isHome }}\" hint-placeholder-val=\"{{ true }}\">\n  <dc-import name=\"Personal Trainer\" hint-size=\"100%,100vh\"><\u002Fdc-import>\n<\u002Fsc-if>\n<sc-if value=\"{{ isConsultoria }}\" hint-placeholder-val=\"{{ false }}\">\n  <dc-import name=\"Consultoria Online\" hint-size=\"100%,100vh\"><\u002Fdc-import>\n<\u002Fsc-if>\n<sc-if value=\"{{ isFeminina }}\" hint-placeholder-val=\"{{ false }}\">\n  <dc-import name=\"Transformacao Feminina\" hint-size=\"100%,100vh\"><\u002Fdc-import>\n<\u002Fsc-if>\n\n\n<\u002Fx-dc>\n<script type=\"text/x-dc\" data-dc-script=\"\">\nclass Component extends DCLogic {\n  state = { hash: typeof location !== 'undefined' ? location.hash : '' };\n  routeOf(h) { return h.startsWith('#/consultoria') ? 'c' : h.startsWith('#/feminina') ? 'f' : 'h'; }\n  componentDidMount() {\n    this.onHash = () => this.setState({ hash: location.hash });\n    window.addEventListener('hashchange', this.onHash);\n    if (this.routeOf(location.hash) === 'h' && location.hash.length > 1) this.scrollToAnchor(location.hash, 400);\n  }\n  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); }\n  componentDidUpdate(_, prev) {\n    const was = this.routeOf(prev.hash), now = this.routeOf(this.state.hash);\n    if (now !== 'h') { if (was !== now) window.scrollTo(0, 0); return; }\n    if (was !== 'h') { this.state.hash.length > 1 ? this.scrollToAnchor(this.state.hash, 250) : window.scrollTo(0, 0); }\n  }\n  scrollToAnchor(h, delay) {\n    setTimeout(() => {\n      const el = document.getElementById(h.slice(1));\n      if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 60);\n    }, delay);\n  }\n  renderVals() {\n    const r = this.routeOf(this.state.hash);\n    return { isHome: r === 'h', isConsultoria: r === 'c', isFeminina: r === 'f' };\n  }\n}\n<\u002Fscript>\n\n\n<\u002Fbody><\u002Fhtml>"
   </script>
+<script>
+window.addEventListener("load", function(){
+  function inject(){
+    if (document.getElementById("__mobile_header_fix")) return;
+    var s = document.createElement("style");
+    s.id = "__mobile_header_fix";
+    s.textContent = "@media (max-width:480px){header a[href^=\"https://wa.me/\"]{display:none !important}}";
+    document.head.appendChild(s);
+  }
+  inject();
+  setInterval(inject, 1000);
+});
+</script>
 </body>
 </html>
